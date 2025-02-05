@@ -5,6 +5,7 @@ from PyQt6.QtGui import QPainter, QColor
 from PyQt6.QtCore import QRect
 from UI import UI
 
+
 class CircleWidget(UI):
     def __init__(self):
         super(CircleWidget, self).__init__()
@@ -18,15 +19,16 @@ class CircleWidget(UI):
         x = random.randint(0, self.width() - diameter)
         y = random.randint(0, self.height() - diameter)
 
-        self.circles.append((x, y, diameter))
+        self.circles.append((x, y, diameter, (random.randint(
+            0, 255), random.randint(0, 255), random.randint(0, 255))))
 
         self.update()
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.setBrush(QColor(255, 255, 0))
 
-        for x, y, diameter in self.circles:
+        for x, y, diameter, color in self.circles:
+            painter.setBrush(QColor(*color))
             painter.drawEllipse(QRect(x, y, diameter, diameter))
 
 
